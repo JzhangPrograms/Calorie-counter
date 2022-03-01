@@ -1,0 +1,37 @@
+import random
+import re
+from serpapi import GoogleSearch
+
+params = {
+  "api_key": "b50eb7d1fcb43ca64ceafe1cf8415ad844ff31db2f1681a34fdb3e969efc5146",
+  "engine": "google",
+  "google_domain": "google.com"
+}
+
+print('welcome to calorie checker')
+
+
+
+
+def searchd():
+    ans = "how much calories is x"
+    b = []
+    sear = input("Type in the food/drink you would like to calorie count ")  
+    params["q"] = (ans.replace("x",sear))
+    search = GoogleSearch(params)
+    results = search.get_dict()
+    answer_box = results['answer_box']
+    b.append(answer_box)
+    firstnum = re.search(r"\d", str(b)).start()
+    firstcalorie = str(b).find("calories")
+    final_calorie = (str(b)[firstnum:firstcalorie])
+    final_calorie.replace(",","")
+    print(sear + " is " + final_calorie + " calories ")
+    again = input("would you like to run another food/drink? Y/N ")
+    if again == "Y" or again == "y":
+     searchd()
+    else: 
+      print("enjoy your meal!") 
+       
+
+searchd()   
